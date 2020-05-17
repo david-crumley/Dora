@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<launch>
+
+   
+
+    <arg name="svo_file"             default="" /> <!-- <arg name="svo_file" default="path/to/svo/file.svo"> -->
+    <arg name="stream"               default="" /> <!-- <arg name="stream" default="<ip_address>:<port>"> -->
+
+    <arg name="camera_model"         default="zed" />
+
+    <!-- Launch ZED camera wrapper -->
+    <include file="$(find zed_wrapper)/launch/$(arg camera_model).launch">
+        <arg name="camera_model"        value="$(arg camera_model)" />
+        <arg name="svo_file"            value="$(arg svo_file)" />
+        <arg name="stream"              value="$(arg stream)" />
+    </include>
+
+
+	<!-- launch the single camera video capture and view -->
+	<node name= "left_image_view" pkg= "image_view" type= "image_view" args= "image:=/zed/zed_node/left/image_rect_color" output= "screen"/>
+
+	<!-- launch the recording -->
+	<node name="stereo_video_saver" pkg= "image_view" type= "video_recorder" args= "image:=/zed/zed_node/left/image_rect_color" cwd= "ROS_HOME" output= "screen">
+		roscore
+		<param name= "filename" value="../zed-ros/src/zed-ros-testing/image_stream/recordings/out.avi" />
+		<param name= "fps"      value="10" />
+	</node>
+
+</launch>

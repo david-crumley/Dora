@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+	<name>rtab_map</name>
+	<version>3.0.0</version>
+	<description>"rtab_map creates a point cloud and mesh with rtab_map algorithm"</description>
+
+	<maintainer email="yoMamma@yommashouse.com">YOMAMMA</maintainer>
+	<license>MINES</license>
+
+	<buildtool_depend>catkin</buildtool_depend>
+
+	<exec_depend>rtabmap</exec_depend>
+	<exec_depend>rtabmap</exec_depend>
+	<exec_depend>zed_wrapper</exec_depend>
+	<exec_depend>rviz</exec_depend>
+</package>

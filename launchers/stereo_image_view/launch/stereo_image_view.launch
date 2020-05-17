@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <!-- filename can be chamged at command line -->
+    <arg "filename" default="output.avi" />
+
+    <arg name="svo_file"             default="" /> <!-- <arg name="svo_file" default="path/to/svo/file.svo"> -->
+    <arg name="stream"               default="" /> <!-- <arg name="stream" default="<ip_address>:<port>"> -->
+
+    <arg name="camera_model"         default="zed" />
+
+	<arg name="filename"			 default="../zed-ros/src/zed-ros-testing/stereo_image_view/recordings/out.avi" />
+
+    <!-- Launch ZED camera wrapper -->
+    <include file="$(find zed_wrapper)/launch/$(arg camera_model).launch">
+        <arg name="camera_model"        value="$(arg camera_model)" />
+        <arg name="svo_file"            value="$(arg svo_file)" />
+        <arg name="stream"              value="$(arg stream)" />
+    </include>
+ 
+	<!-- launch video viewer node -->
+	<node name= "stereo_video_viewer" pkg= "image_view" type= "image_view" args= "image:=/zed/zed_node/stereo/image_rect_color/compressed" output= "screen" />
+
+
+	<!-- 10 hours later after finally finding the directory!!!! -->
+	<!-- launch video recording node  -->
+	<node name="stereo_video_saver" pkg= "image_view" type= "video_recorder" args= "image:=/zed/zed_node/stereo/image_rect_color/compressed" cwd= "ROS_HOME" output= "screen">
+		
+		<param name= "filename" value="../zed-ros/src/zed-ros-testing/stereo_image_view/recordings/$(arg filename)" />
+	</node>
+
+</launch>
