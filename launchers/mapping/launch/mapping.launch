@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+	
+	<!-- start the mapping -->
+	<node name= "start_mapping" pkg= "3d_mapping_control" type= "3d_mapping_control_start_node" output= "screen" />
+
+	<!-- bag the map -->
+	<node name= "rosbag_record_map" pkg= "rosbag" type= "record" args= "record -o /tmp/map /zed/zed_node/mapping/fused_cloud" output= "screen" />
+
+</launch>
