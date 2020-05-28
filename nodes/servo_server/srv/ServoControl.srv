@@ -1,0 +1,9 @@
+char   Command
+char   On_Off
+char   Channel
+uint16 Position
+char   Speed
+
+---
+
+bool Ret
