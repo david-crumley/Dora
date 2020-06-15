@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<launch>
+	
+	<!-- start the mapping -->
+	<node name= "start_mapping" pkg= "three_d_mapping_control" type= "three_d_mapping_control_start_node" output="screen" />
+
+	<!-- bag the map -->
+	<node name= "rosbag_record_map" pkg= "rosbag" type= "record" args= "record -o /tmp/map /zed/zed_node/mapping/fused_cloud" output= "screen" />
+
+
+	<!-- start the image_stream(single camera video capture and view -->
+	<node name= "left_image_view" pkg= "image_view" type= "image_view" args= "image:=/zed/zed_node/left/image_rect_color" output= "screen" />
+
+	<!-- start the recording -->
+	<node name="stereo_video_recorder" pkg="image_view" type= "video_recorder" args= "image:=/zed/zed_node/left/image_rect_color" cwd= "ROS_HOME" output= "screen">
+		
+		<param name= "filename" value= "out.avi" />
+		<param name= "fps"	value= "10" />
+	</node>
+	
+	<!-- start scanning -->
+	<node name= "servo_scan_client" pkg= "servo_scan_client" type="servo_scan_client_node" output= "screen" />
+
+</launch> 

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<launch>
+
+   
+	<!-- launch the single camera video capture and view -->
+	<node name= "left_image_view" pkg= "image_view" type= "image_view" args= "image:=/zed/zed_node/left/image_rect_color" output= "screen"/>
+
+	<!-- launch the recording -->
+	<node name="stereo_video_saver" pkg= "image_view" type= "video_recorder" args= "image:=/zed/zed_node/left/image_rect_color" cwd= "ROS_HOME" output= "screen">
+		roscore
+		<param name= "filename" value="../zed-ros/src/zed-ros-testing/launchers/image_stream/recordings/out.avi" />
+		<param name= "fps"      value="10" />
+	</node>
+
+</launch>
